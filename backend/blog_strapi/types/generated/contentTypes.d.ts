@@ -55,6 +55,13 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       }>;
     Tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     WrittenBy: Schema.Attribute.Relation<'manyToMany', 'api::author.author'>;
+    Slug: Schema.Attribute.UID<'Title'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

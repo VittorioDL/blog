@@ -7,7 +7,7 @@ const Article = ({ article }: any) => {
 
   return (
     <article className="border-2 border-red-400 mb-2">
-      <Link href={`/articles/${article.documentId}`}>
+      <Link href={`/articles/${article.Slug}`}>
         <h1 className="text-3xl font-bold">{article.Title}</h1>
         <h2 className="text-md font-medium ">{article.Subtitle}</h2>
         <Image 
