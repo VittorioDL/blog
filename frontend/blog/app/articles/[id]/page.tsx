@@ -1,13 +1,13 @@
 import React from 'react'
 
-async function fetchArticle(id : number) {
+async function fetchArticle(documentId : string) {
   const options = {
     headers: {
       Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`
     }
   }
   try  {
-    const res = await fetch(`http://127.0.0.1:1338/api/articles?${id}?populate=*`, options);
+    const res = await fetch(`http://127.0.0.1:1338/api/articles/${documentId}?populate=*`, options);
     const response = await res.json();
     return response;
   } catch(err){
@@ -23,7 +23,7 @@ const page = async ({ params }: any) => {
   return (
     <div>
       welaa
-      <p>{article.Title}</p>
+      <p>{article.data.Title}</p>
     </div>
   )
 }
