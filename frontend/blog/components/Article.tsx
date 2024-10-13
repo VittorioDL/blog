@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Article = ({ article }: any) => {
 
-  const imgUrl = "http://127.0.0.1:1338" + article.FeaturedImage.url;
+  const imgUrl = process.env.STRAPI_API_URL + article.FeaturedImage.url;
 
   return (
     <article className="border-2 border-red-400 mb-2">

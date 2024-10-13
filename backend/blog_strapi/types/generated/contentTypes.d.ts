@@ -34,12 +34,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    Content: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     Date: Schema.Attribute.Date &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -57,6 +51,12 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     WrittenBy: Schema.Attribute.Relation<'manyToMany', 'api::author.author'>;
     Slug: Schema.Attribute.UID<'Title'> &
       Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Content: Schema.Attribute.RichText &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

@@ -35,15 +35,6 @@
       },
       "type": "string"
     },
-    "Content": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext",
-      "required": false
-    },
     "Date": {
       "pluginOptions": {
         "i18n": {
@@ -86,6 +77,14 @@
       "type": "uid",
       "targetField": "Title",
       "required": true
+    },
+    "Content": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
     }
   }
 }
