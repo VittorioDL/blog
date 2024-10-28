@@ -18,7 +18,8 @@ async function fetchArticle(slug : string) {
 }
 
 const page = async ({ params }: any) => {
-  const article = await fetchArticle(params.slug);
+  const { slug } = await params;
+  const article = await fetchArticle(slug);
   const imgUrl = process.env.STRAPI_API_URL + article.data[0].FeaturedImage.url;
   return (
     <div>
