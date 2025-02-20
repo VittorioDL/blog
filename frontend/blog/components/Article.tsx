@@ -13,8 +13,8 @@ const Article = ({ article }: any) => {
             <Image
               src={imgUrl}
               alt="immagine di copertura"
-              layout="fill"
-              objectFit="cover"
+              fill // Usa fill per far sì che l'immagine copra l'intero contenitore
+              style={{ objectFit: 'cover' }} // Opzione per mantenere l'aspetto dell'immagine
               className="absolute inset-0"
             />
           </div>

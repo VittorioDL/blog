@@ -35,7 +35,9 @@ const LatestArticle = ({ latestArticle }: any) => {
 
               {/* Descrizione dell'articolo (sotto l'immagine) */}
               <div className="p-6">
-              <p>{content.slice(0, 200)}...</p>
+                <p className="text-base font-light sm:text-lg md:text-xl lg:text-2xl line-clamp-3 sm:line-clamp-2 md:line-clamp-3">
+                  {content}
+                </p>
               </div>
             </div>
           </div>
