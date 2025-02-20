@@ -12,7 +12,7 @@ async function fetchArticles() {
   try  {
     // TO-DO: fetch only data that is displayed on the Article card
     // TO-DO: on-demand ISR with tags and webhooks
-    const res = await fetch(`${process.env.STRAPI_API_URL}/api/articles?populate=*`, options);
+    const res = await fetch(`${process.env.STRAPI_API_URL}/api/articles?populate=*&sort=Date:desc`, options);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -28,9 +28,10 @@ async function fetchArticles() {
 
 export default async function Home() {
   const articles = await fetchArticles();
+  const latestArticle = articles.data[0];
   return (
-    <div className="bg-green-500">
-      <LatestArticle/>
+    <div>
+      <LatestArticle latestArticle={latestArticle}/>
       <Articles articles={articles}/>
     </div>
   );
