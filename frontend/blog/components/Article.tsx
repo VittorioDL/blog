@@ -3,26 +3,33 @@ import Link from "next/link";
 
 const Article = ({ article }: any) => {
   const imgUrl = process.env.STRAPI_API_URL + article.FeaturedImage.url;
+  const date = new Date(article.publishedAt);
+  const formattedDate = `${date.getDate()} ${date.toLocaleString('it-IT', { month: 'short' }).charAt(0).toUpperCase()}${date.toLocaleString('it-IT', { month: 'long' }).slice(1)} ${date.getFullYear()}`;  
 
   return (
-    <article className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 mb-4">
-      <Link href={`/articles/${article.Slug}`}>
-        <div className="block w-full h-full">
-          {/* Immagine di copertura */}
-          <div className="relative w-full h-64 md:h-80">
+    <article className="w-full sm:w-[48%] md:w-[47%] lg:w-[31%] min-w-[300px] p-4">
+      <Link href={`/articles/${article.Slug}`} className="w-full block">
+        <div className="flex flex-col w-full h-full">
+          {/* Immagine - rapporto 16:9 */}
+          <div className="relative w-full aspect-[16/10] mb-4">
             <Image
               src={imgUrl}
-              alt="immagine di copertura"
-              fill // Usa fill per far sì che l'immagine copra l'intero contenitore
-              style={{ objectFit: 'cover' }} // Opzione per mantenere l'aspetto dell'immagine
-              className="absolute inset-0"
+              alt="immagine di copertina"
+              fill
+              style={{ objectFit: 'cover' }}
+              className="rounded-sm"
             />
           </div>
 
-          {/* Overlay del testo sopra l'immagine */}
-          <div className="absolute inset-0  flex flex-col justify-center items-center text-white p-4">
-            <h1 className="text-2xl font-bold md:text-3xl">{article.Title}</h1>
-            <h2 className="text-md font-normal mt-2">{article.Subtitle}</h2>
+          {/* Testo allineato a sinistra */}
+          <div className="w-full">
+            <h1 className="text-2xl md:text-2xl lg:text-3xl font-playfair font-bold mb-1 line-clamp-2">{article.Title}</h1>
+            <h2 className="text-base md:text-lg font-atlas font-normal line-clamp-2 mb-2">{article.Subtitle}</h2>
+            <div className="flex items-center text-sm text-gray-500 font-atlas">
+              <span>
+                {formattedDate}
+              </span>
+            </div>
           </div>
         </div>
       </Link>

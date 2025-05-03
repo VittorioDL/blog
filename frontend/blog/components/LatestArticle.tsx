@@ -1,52 +1,49 @@
-import Image from "next/image"
+import Image from "next/image";
 import Link from "next/link";
 
 const LatestArticle = ({ latestArticle }: any) => {
   const imgUrl = process.env.STRAPI_API_URL + latestArticle.FeaturedImage.url;
   const title = latestArticle.Title;
-  const author = latestArticle.WrittenBy[0].Name+' '+latestArticle.WrittenBy[0].Surname;
-  const date = latestArticle.Date;
+  const author = latestArticle.WrittenBy[0].Name + ' ' + latestArticle.WrittenBy[0].Surname;
   const subtitle = latestArticle.Subtitle;
-  const content = latestArticle.Content;
+
   return (
-    <Link href={`/articles/${latestArticle.Slug}`}>
-      <div className="bg-white shadow-lg overflow-hidden">
-        {/* Contenitore dell'immagine con overlay di testo */}
-        <div className="relative h-64 md:h-96">
-          {/* Immagine dell'articolo */}
-          <Image
-            src={imgUrl}
-            alt={title}
-            fill // Usa fill per far sì che l'immagine copra l'intero contenitore
-            style={{ objectFit: 'cover' }} // Opzione per mantenere l'aspetto dell'immagine
-          />
+    
+      <div className="relative w-full mx-auto h-[40vh] min-h-[250px] max-h-[430px] 
+                     sm:h-[50vh] sm:min-h-[330px] md:h-[60vh] lg:max-h-[700px]
+                     lg:max-w-6xl overflow-hidden">
+        <Link href={`/articles/${latestArticle.Slug}`}>
+        <Image
+          src={imgUrl}
+          alt={title}
+          fill
+          priority={true}
+          className="object-cover object-center"
+          sizes="100vw"
+        />
 
-          {/* Overlay di testo */}
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-end p-6">
-            <div className="text-white">
-              {/* Titolo dell'articolo */}
-              <h2 className="text-2xl md:text-4xl font-bold mb-2">{title}</h2>
-
-              {/* Autore e data */}
-              <div className="flex items-center text-sm text-gray-300">
-                <span className="mr-4">{author}</span>
-                {/* <span>{date}</span> */}
-              </div>
-
-              {/* Descrizione dell'articolo (sotto l'immagine) */}
-              <div className="p-6">
-                <p className="text-base font-light sm:text-lg md:text-xl lg:text-2xl line-clamp-3 sm:line-clamp-2 md:line-clamp-3">
-                  {content}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex items-end">
+          <div className="w-full px-4 md:px-6 lg:px-7 pb-20">
+            <div className="max-w-4xl text-white">
+              <h1 className="text-[2.5rem] md:text-6xl lg:text-7xl font-playfair font-bold leading-tight mb-4">
+                {title}
+              </h1>
+              {subtitle && (
+                <p className="hidden [@media(min-width:425px)]:block md:text-2xl font-atlas text-white/90 mb-6 mt-6 max-w-3xl">
+                  {subtitle}
                 </p>
+              )}
+              <div className="absolute bottom-4 right-4">
+                <div className="text-sm sm:text-base font-atlas italic text-white/80 ">
+                  <span className="font-medium">{author}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        
+        </Link>
       </div>
-    </Link>
   );
-}
+};
 
-export default LatestArticle
+export default LatestArticle;
