@@ -3,6 +3,9 @@ import Link from 'next/link';
 import React from 'react';
 import { Metadata } from 'next';  // Importa la tipizzazione per i metadati
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import remarkGfm from 'remark-gfm';
 
 async function fetchArticle(slug: string) {
   const options = {
@@ -54,14 +57,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 const Page = async ({ params }: any) => {
   const article = await fetchArticle(params.slug);
   const imgUrl = process.env.STRAPI_API_URL + article.data[0].FeaturedImage.url;
-  const date = new Date(article.data[0].publishedAt);
+  const date = new Date(article.data[0].Date);
   const title = article.data[0].Title;
   const subtitle = article.data[0].Subtitle;
   const content = article.data[0].Content;
   const author = article.data[0].WrittenBy[0].Name + ' ' + article.data[0].WrittenBy[0].Surname;
   const formattedDate = `${date.getDate()} ${date.toLocaleString('it-IT', { month: 'short' }).charAt(0).toUpperCase()}${date.toLocaleString('it-IT', { month: 'long' }).slice(1)} ${date.getFullYear()}`;
   const url = `${process.env.NEXT_PUBLIC_SITE_URL}/articoli/${params.slug}`;
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Hero Image */}
@@ -81,9 +83,17 @@ const Page = async ({ params }: any) => {
         <h2 className="text-base md:text-xl lg:text-2xl font-atlas text-gray-600">{subtitle}</h2>
       </div>
 
-      {/* Article Content */}
+        {/* Article Content con ReactMarkdown configurato */}
       <div className="text-base md:text-xl font-atlas mx-auto space-y-4">
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw, rehypeSanitize]}
+          components={{
+            // Puoi aggiungere override per componenti specifici qui se necessario
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
 
       {/* Published Date */}
