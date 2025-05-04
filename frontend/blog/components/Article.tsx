@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Article = ({ article }: any) => {
   const imgUrl = process.env.STRAPI_API_URL + article.FeaturedImage.url;
-  const date = new Date(article.publishedAt);
+  const date = new Date(article.Date);
   const formattedDate = `${date.getDate()} ${date.toLocaleString('it-IT', { month: 'short' }).charAt(0).toUpperCase()}${date.toLocaleString('it-IT', { month: 'long' }).slice(1)} ${date.getFullYear()}`;  
 
   return (
