@@ -12,7 +12,7 @@ const nextConfig = {
       // Configurazione per Strapi su Railway
       {
         protocol: 'https',
-        hostname: 'blog-backend-strapi-production.up.railway.app',
+        hostname: new URL(process.env.STRAPI_API_URL || 'https://blog-backend-strapi-production.up.railway.app').hostname,
         pathname: '/uploads/**',
       },
     ],
@@ -44,11 +44,7 @@ const nextConfig = {
     ];
   },
   trailingSlash: true,
-  experimental: {
-    isrMemoryCacheSize: 0,
-  },
   compress: true,
-  // Rimuovi la sezione env qui, le variabili NEXT_PUBLIC_ sono già esposte automaticamente
 };
 
 export default nextConfig;
