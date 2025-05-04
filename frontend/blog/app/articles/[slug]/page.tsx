@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const title = article.data[0].Title;
   const content = article.data[0].Content;
   const imgUrl = process.env.STRAPI_API_URL + article.data[0].FeaturedImage.url;
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/articoli/${params.slug}`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/articles/${params.slug}`;
 
   return {
     title: `${title} | The Noticer`,
